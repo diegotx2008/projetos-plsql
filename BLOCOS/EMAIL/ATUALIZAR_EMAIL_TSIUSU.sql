@@ -3,7 +3,7 @@ BEGIN
 ============================================================
 AUTOR: Diego Teixeira de Almeida
 DATA CRIAÇÃO:  27/02/2023
-JUSTIFICATIVA: Migração de domínio microcity.com.br para voke.tech
+JUSTIFICATIVA: Migração de domínio XXX.com.br para YYYY.tech
 
 ============================================================
 */
