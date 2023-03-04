@@ -1,0 +1,41 @@
+BEGIN
+
+DECLARE
+
+    P_CODEMP INT;
+    P_NUNOTA INT;
+    
+    CURSOR C1 IS (
+                SELECT 
+                 CODEMP
+                ,CODBEM
+                ,CODPROD 
+                FROM TCIBEM 
+                WHERE CODEMP = 01 
+                AND CODBEM IN(SELECT CODBEM FROM MICRO_SUBSTITE)
+    );
+
+    BEGIN
+    
+    FOR R1 IN C1 LOOP
+    SELECT 
+    MAX(IBE.NUNOTA) AS NUNOTA
+    INTO P_NUNOTA
+    FROM TCIIBE IBE,TGFCAB CAB
+    WHERE IBE.NUNOTA = CAB.NUNOTA
+    AND   IBE.CODBEM = R1.CODBEM;
+    
+    SELECT 
+    DISTINCT DECODE((CAB.CODEMP),1,21,5,24,8,22,9,23,6,20,7,20,CODEMP)
+    INTO P_CODEMP
+    FROM  TGFCAB CAB
+    WHERE CAB.NUNOTA = P_NUNOTA;
+    
+    UPDATE TCIBEM 
+    SET   CODEMP    = P_CODEMP 
+    WHERE CODEMP    = R1.CODEMP 
+    AND   CODBEM    = R1.CODBEM;
+    
+    END LOOP;
+    END;
+END;
