@@ -132,6 +132,10 @@ BEGIN
         V_CODUSUAUX,
         V_NOMEUSUSANKHYA        
     );
-END;
+EXCEPTION 
+	WHEN NO_DATA_FOUND THEN
+	RAISE_APPLICATION_ERROR(-20101, 'Dados não encontrados, entre em contato com o administrador do sistema');
 
 END;
+
+END STP_GRAVAR_LOG_TCIBEM;
